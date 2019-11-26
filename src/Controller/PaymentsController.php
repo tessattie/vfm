@@ -20,7 +20,7 @@ class PaymentsController extends AppController
     public function index()
     {
         $this->paginate = [
-            'contain' => ['Sales', 'Methods', 'Rates', 'Users']
+            'contain' => ['Sales', 'Methods', 'Rates']
         ];
         $payments = $this->paginate($this->Payments);
 
@@ -37,7 +37,7 @@ class PaymentsController extends AppController
     public function view($id = null)
     {
         $payment = $this->Payments->get($id, [
-            'contain' => ['Sales', 'Methods', 'Rates', 'Users', 'Invoices']
+            'contain' => ['Sales', 'Methods', 'Rates']
         ]);
 
         $this->set('payment', $payment);
@@ -63,9 +63,7 @@ class PaymentsController extends AppController
         $sales = $this->Payments->Sales->find('list', ['limit' => 200]);
         $methods = $this->Payments->Methods->find('list', ['limit' => 200]);
         $rates = $this->Payments->Rates->find('list', ['limit' => 200]);
-        $users = $this->Payments->Users->find('list', ['limit' => 200]);
-        $invoices = $this->Payments->Invoices->find('list', ['limit' => 200]);
-        $this->set(compact('payment', 'sales', 'methods', 'rates', 'users', 'invoices'));
+        $this->set(compact('payment', 'sales', 'methods', 'rates', 'users'));
     }
 
     /**
@@ -92,9 +90,7 @@ class PaymentsController extends AppController
         $sales = $this->Payments->Sales->find('list', ['limit' => 200]);
         $methods = $this->Payments->Methods->find('list', ['limit' => 200]);
         $rates = $this->Payments->Rates->find('list', ['limit' => 200]);
-        $users = $this->Payments->Users->find('list', ['limit' => 200]);
-        $invoices = $this->Payments->Invoices->find('list', ['limit' => 200]);
-        $this->set(compact('payment', 'sales', 'methods', 'rates', 'users', 'invoices'));
+        $this->set(compact('payment', 'sales', 'methods', 'rates', 'users'));
     }
 
     /**

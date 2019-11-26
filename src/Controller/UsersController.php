@@ -37,7 +37,7 @@ class UsersController extends AppController
     public function view($id = null)
     {
         $user = $this->Users->get($id, [
-            'contain' => ['Roles', 'Cards', 'Customers', 'Invoices' => ['Payments'], 'Sales', 'Trucks']
+            'contain' => ['Roles', 'Cards', 'Customers', 'Sales' => ["Trucks", "Customers"], 'Trucks']
         ]);
 
         $this->set('user', $user);
@@ -100,12 +100,12 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post', 'delete', 'get']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('Utilisateur Supprimé'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Impossible de supprimer cet utilisateur'));
         }
 
         return $this->redirect(['action' => 'index']);

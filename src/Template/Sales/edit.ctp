@@ -4,52 +4,56 @@
  * @var \App\Model\Entity\Sale $sale
  */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Form->postLink(
-                __('Delete'),
-                ['action' => 'delete', $sale->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $sale->id)]
-            )
-        ?></li>
-        <li><?= $this->Html->link(__('List Sales'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Customers'), ['controller' => 'Customers', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Customer'), ['controller' => 'Customers', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Trucks'), ['controller' => 'Trucks', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Truck'), ['controller' => 'Trucks', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Pointofsales'), ['controller' => 'Pointofsales', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Pointofsale'), ['controller' => 'Pointofsales', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Payments'), ['controller' => 'Payments', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Payment'), ['controller' => 'Payments', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Products'), ['controller' => 'Products', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Product'), ['controller' => 'Products', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="sales form large-9 medium-8 columns content">
-    <?= $this->Form->create($sale) ?>
-    <fieldset>
-        <legend><?= __('Edit Sale') ?></legend>
-        <?php
-            echo $this->Form->control('sale_number');
-            echo $this->Form->control('status');
-            echo $this->Form->control('user_id', ['options' => $users]);
-            echo $this->Form->control('customer_id', ['options' => $customers]);
-            echo $this->Form->control('truck_id', ['options' => $trucks]);
-            echo $this->Form->control('taxe');
-            echo $this->Form->control('discount');
-            echo $this->Form->control('subtotal');
-            echo $this->Form->control('charged');
-            echo $this->Form->control('sortie');
-            echo $this->Form->control('pointofsale_id', ['options' => $pointofsales]);
-            echo $this->Form->control('hidden');
-            echo $this->Form->control('discount_type');
-            echo $this->Form->control('total');
-            echo $this->Form->control('products._ids', ['options' => $products]);
-        ?>
-    </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
-    <?= $this->Form->end() ?>
+
+<div class="row" style="margin-bottom:15px">
+    <ol class="breadcrumb">
+        <li><a href="<?= ROOT_DIREC ?>">
+            <em class="fa fa-home"></em>
+        </a></li>
+        <li><a href="<?= ROOT_DIREC ?>">
+            Ventes
+        </a></li>
+        <li class="active">Editer</li>
+    </ol>
 </div>
+<?= $this->Flash->render() ?>
+<div class="container-fluid"> 
+    <div class="panel panel-default articles">
+        <div class="panel-heading">
+            Editer Vente : <?= $sale->sale_number ?>
+            <ul class="pull-right panel-settings panel-button-tab-right">
+                            <li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
+                                <em class="fa fa-cog"></em>
+                            </a>
+                                <ul class="dropdown-menu dropdown-menu-right">
+                                    <li>
+                                        <ul class="dropdown-settings">
+                                            <li><a href="<?= ROOT_DIREC ?>/customers">
+                                                 Retour
+                                            </a></li>
+                                            <li><a href="<?= ROOT_DIREC ?>/sales/add">
+                                               Nouvelle Vente
+                                            </a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+        </div>
+    <div class="panel-body articles-container">       
+           <?= $this->Form->create($sale) ?>
+
+            <div class="row" style="margin-top:15px">
+                <div class="col-md-6"><?= $this->Form->control('charged', array('class' => 'form-control', "label" => "Chargement", "options" => array(0 => "Non", 1 => "Oui"))); ?></div>
+                <div class="col-md-6"><?= $this->Form->control('sortie', array('class' => 'form-control', "label" => "Sortie", "options" => array(0 => "Non", 1 => "Oui"))); ?></div>
+
+            </div>   
+            <div class="row">
+                <div class="col-md-12"><?= $this->Form->button(__('Valider'), array('class'=>'btn btn-success', "style"=>"margin-top:25px;float:right")) ?></div>
+            </div>  
+
+        <?= $this->Form->end() ?>
+        </div>
+        
+    </div>
+</div><!--End .articles-->

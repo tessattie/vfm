@@ -69,7 +69,7 @@
                 <div class="col-md-2">
                     <?= $this->Html->image('trucks/'.$truck->photo, ["width" => "100%", "height" => "auto"]); ?>
                 </div>
-                    <div class="col-md-6"><?= $this->Form->control('photo', array('class' => 'form-control', "type" => 'file', 'label' => "Update Photo")); ?></div>
+                    <div class="col-md-6"><?= $this->Form->control('photo', array('class' => 'form-control', "type" => 'file', 'label' => "Update Photo", "required" => false)); ?></div>
                 </div> 
                 <div class="row">
                     <div class="col-md-12"><?= $this->Form->button(__('Valider'), array('class'=>'btn btn-success', "style"=>"margin-top:25px;float:right")) ?></div>

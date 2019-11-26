@@ -27,6 +27,19 @@ class ProductsController extends AppController
         $this->set(compact('products'));
     }
 
+    public function find(){
+        if($this->request->is("ajax")){
+            $product = $this->Products->find('all', array('conditions' => array("id" => $this->request->getData()['id'])));
+            if($product->count() == 0){
+                echo json_encode("false");
+            }else{
+               echo json_encode($product->toArray()); 
+            }
+            
+        }
+        die();
+    }
+
     /**
      * View method
      *
@@ -54,13 +67,13 @@ class ProductsController extends AppController
         if ($this->request->is('post')) {
             $product = $this->Products->patchEntity($product, $this->request->getData());
             if ($ident = $this->Products->save($product)) {
-                $this->Flash->success(__('The product has been saved.'));
+                $this->Flash->success(__('Produit Sauvegardé'));
 
                 return $this->redirect(['action' => 'edit', $ident['id']]);
             }
-            $this->Flash->error(__('The product could not be saved. Please, try again.'));
+            $this->Flash->error(__('Nous n\'avons pas pu sauvegarder ce produit. Réessayez ou appelez votre administrateur.'));
         }
-        $categories = $this->Products->Categories->find('list', ['limit' => 200]);
+        $categories = $this->Products->Categories->find('list', ['order' => ['name ASC']]);
         $sales = $this->Products->Sales->find('list', ['limit' => 200]);
         $this->set(compact('product', 'categories', 'sales'));
     }
@@ -87,7 +100,7 @@ class ProductsController extends AppController
             }
             
         }
-        $categories = $this->Products->Categories->find('list', ['limit' => 200]);
+        $categories = $this->Products->Categories->find('list', ['order' => ['name ASC']]);
         $sales = $this->Products->Sales->find('list', ['limit' => 200]);
         $this->set(compact('product', 'categories', 'sales'));
     }
@@ -101,12 +114,12 @@ class ProductsController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
+        $this->request->allowMethod(['post', 'delete', 'get']);
         $product = $this->Products->get($id);
         if ($this->Products->delete($product)) {
-            $this->Flash->success(__('The product has been deleted.'));
+            $this->Flash->success(__('Produit Supprimé'));
         } else {
-            $this->Flash->error(__('The product could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Impossible de supprimer ce produit'));
         }
 
         return $this->redirect(['action' => 'index']);

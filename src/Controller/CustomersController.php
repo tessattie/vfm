@@ -27,6 +27,30 @@ class CustomersController extends AppController
         $this->set(compact('customers'));
     }
 
+    public function find(){
+        if($this->request->is("ajax")){
+            $customer = $this->Customers->find('all', array('conditions' => array("id" => $this->request->getData()['id'])))->contain(["Requisitions" => ['RequisitionsProducts'], 'Accounts' => ['Rates']]);
+            foreach($customer as $c){
+                $balance = 0;
+                foreach($c->accounts as $account){
+                    if($account->rate_id == 1){
+                        $balance = $balance + ( $account->balance / $account->rate->amount );
+                    }else{
+                        $balance = $balance + $account->balance;
+                    }
+                }
+                $c->credit_available = $c->credit_limit + $balance;
+            }
+            if($customer->count() == 0){
+                echo json_encode("false");
+            }else{
+               echo json_encode($customer->toArray()); 
+            }
+            
+        }
+        die();
+    }
+
     /**
      * View method
      *
@@ -37,7 +61,7 @@ class CustomersController extends AppController
     public function view($id = null)
     {
         $customer = $this->Customers->get($id, [
-            'contain' => ['Users', 'Invoices', 'Sales' => ['Users', 'Trucks']]
+            'contain' => ['Users', 'Sales' => ['Users', 'Trucks']]
         ]);
 
         $this->set('customer', $customer);
@@ -99,13 +123,13 @@ class CustomersController extends AppController
      */
     public function delete($id = null)
     {
-        $this->request->allowMethod(['post', 'delete']);
-        $customer = $this->Customers->get($id);
-        if ($this->Customers->delete($customer)) {
-            $this->Flash->success(__('The customer has been deleted.'));
-        } else {
-            $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
-        }
+        $this->request->allowMethod(['post', 'delete', "get"]);
+        // $customer = $this->Customers->get($id);
+        // if ($this->Customers->delete($customer)) {
+        //     $this->Flash->success(__('The customer has been deleted.'));
+        // } else {
+        //     $this->Flash->error(__('The customer could not be deleted. Please, try again.'));
+        // }
 
         return $this->redirect(['action' => 'index']);
     }

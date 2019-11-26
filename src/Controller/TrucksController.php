@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 
+
 /**
  * Trucks Controller
  *
@@ -12,6 +13,8 @@ use App\Controller\AppController;
  */
 class TrucksController extends AppController
 {
+
+
     /**
      * Index method
      *
@@ -61,7 +64,7 @@ class TrucksController extends AppController
                 $truck->photo = $featured_image;
             }
             $truck->user_id = $this->Auth->user()['id']; 
-            if ($ident = $this->Trucks->save($pointofsale)) {
+            if ($ident = $this->Trucks->save($truck)) {
                 $this->Flash->success(__('Le camion a bien été sauvegardée'));
 
                 return $this->redirect(['action' => 'edit', $ident['id']]);
@@ -105,7 +108,6 @@ class TrucksController extends AppController
             }else{
                 $this->Flash->error(__('Les mises à jour n\'ont pas pu être effectuées. Réessayez.'));
             }
-            $this->Flash->error(__('The truck could not be saved. Please, try again.'));
         }
         $users = $this->Trucks->Users->find('list', ['limit' => 200]);
         $this->set(compact('truck', 'users'));
@@ -123,11 +125,24 @@ class TrucksController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $truck = $this->Trucks->get($id);
         if ($this->Trucks->delete($truck)) {
-            $this->Flash->success(__('The truck has been deleted.'));
+            $this->Flash->success(__('Camion Supprimé'));
         } else {
-            $this->Flash->error(__('The truck could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Impossible de supprimer ce camion.'));
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    public function find(){
+        if($this->request->is("ajax")){
+            $truck = $this->Trucks->find('all', array('conditions' => array("immatriculation" => $this->request->getData()['truck'])));
+            if($truck->count() == 0){
+                echo json_encode("false");
+            }else{
+               echo json_encode($truck->toArray()); 
+            }
+            
+        }
+        die();
     }
 }

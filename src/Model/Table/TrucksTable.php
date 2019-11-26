@@ -25,6 +25,7 @@ use Cake\Validation\Validator;
  */
 class TrucksTable extends Table
 {
+
     /**
      * Initialize method
      *
@@ -48,6 +49,8 @@ class TrucksTable extends Table
         $this->hasMany('Sales', [
             'foreignKey' => 'truck_id'
         ]);
+
+        $this->setDisplayField('immatriculation');
     }
 
     /**

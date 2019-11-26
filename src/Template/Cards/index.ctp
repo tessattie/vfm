@@ -37,7 +37,6 @@
     <div class="panel-body articles-container">
             <table class="table table-stripped">
                 <thead> 
-                <th>    </th>
                         <th>Nom</th>
                         <th class="text-center">Code</th>
                         <th class="text-center">Date de création</th>
@@ -46,11 +45,10 @@
             <tbody> 
         <?php foreach($cards as $card) : ?>
                 <tr>
-                <td><a href="<?= ROOT_DIREC ?>/cards/delete/<?= $card->id ?>" style="font-size:1.3em!important;margin-right:15px"><span class="fa fa-xl fa-trash color-red"></span></a></td>
                     <td><?= $card->name ?></td>
                     <td class="text-center"><?= $card->code ?></td>
                     <td class="text-center"><?= $card->created ?></td>
-                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/cards/edit/<?= $card->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a></td>
+                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/cards/edit/<?= $card->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a>  <a href="<?= ROOT_DIREC ?>/cards/delete/<?= $card->id ?>" style="font-size:1.3em!important;margin-left:15px"><span class="fa fa-xl fa-trash color-red"></span></a></td>
                 </tr>
         <?php endforeach; ?>
         </tbody>

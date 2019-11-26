@@ -19,7 +19,7 @@ class CategoriesController extends AppController
      */
     public function index()
     {
-        $categories = $this->Categories->find('all', array('order' => array("created DESC")));
+        $categories = $this->Categories->find('all', array('order' => array("name ASC")));
 
         $this->set(compact('categories'));
     }
@@ -96,9 +96,9 @@ class CategoriesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $category = $this->Categories->get($id);
         if ($this->Categories->delete($category)) {
-            $this->Flash->success(__('The category has been deleted.'));
+            $this->Flash->success(__('Catégorie Supprimée'));
         } else {
-            $this->Flash->error(__('The category could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Vous ne pouvez pas supprimer cette catégorie'));
         }
 
         return $this->redirect(['action' => 'index']);

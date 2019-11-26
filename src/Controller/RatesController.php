@@ -24,41 +24,6 @@ class RatesController extends AppController
         $this->set(compact('rates'));
     }
 
-    /**
-     * View method
-     *
-     * @param string|null $id Rate id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $rate = $this->Rates->get($id, [
-            'contain' => ['Payments']
-        ]);
-
-        $this->set('rate', $rate);
-    }
-
-    /**
-     * Add method
-     *
-     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
-     */
-    public function add()
-    {
-        $rate = $this->Rates->newEntity();
-        if ($this->request->is('post')) {
-            $rate = $this->Rates->patchEntity($rate, $this->request->getData());
-            if ($this->Rates->save($rate)) {
-                $this->Flash->success(__('The rate has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The rate could not be saved. Please, try again.'));
-        }
-        $this->set(compact('rate'));
-    }
 
     /**
      * Edit method
@@ -84,23 +49,17 @@ class RatesController extends AppController
         $this->set(compact('rate'));
     }
 
-    /**
-     * Delete method
-     *
-     * @param string|null $id Rate id.
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function delete($id = null)
-    {
-        $this->request->allowMethod(['post', 'delete']);
-        $rate = $this->Rates->get($id);
-        if ($this->Rates->delete($rate)) {
-            $this->Flash->success(__('The rate has been deleted.'));
-        } else {
-            $this->Flash->error(__('The rate could not be deleted. Please, try again.'));
-        }
 
-        return $this->redirect(['action' => 'index']);
+    public function find(){
+        if($this->request->is("ajax")){
+            $rate = $this->Rates->find('all', array('conditions' => array("id" => $this->request->getData()['id'])));
+            if($rate->count() == 0){
+                echo json_encode("false");
+            }else{
+               echo json_encode($rate->toArray()); 
+            }
+        }
+        die();
     }
+    
 }

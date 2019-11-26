@@ -26,6 +26,7 @@ use Cake\Validation\Validator;
  */
 class CustomersTable extends Table
 {
+
     /**
      * Initialize method
      *
@@ -37,7 +38,7 @@ class CustomersTable extends Table
         parent::initialize($config);
 
         $this->setTable('customers');
-        $this->setDisplayField('id');
+        $this->setDisplayField('name');
         $this->setPrimaryKey('id');
 
         $this->addBehavior('Timestamp');
@@ -46,10 +47,16 @@ class CustomersTable extends Table
             'foreignKey' => 'user_id',
             'joinType' => 'INNER'
         ]);
-        $this->hasMany('Invoices', [
+        
+        $this->hasMany('Sales', [
             'foreignKey' => 'customer_id'
         ]);
-        $this->hasMany('Sales', [
+
+        $this->hasMany('Requisitions', [
+            'foreignKey' => 'customer_id'
+        ]);
+
+        $this->hasMany('Accounts', [
             'foreignKey' => 'customer_id'
         ]);
     }

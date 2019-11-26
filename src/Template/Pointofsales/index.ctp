@@ -25,7 +25,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
                                         <ul class="dropdown-settings">
-                                            <li><a href="<?= ROOT_DIREC ?>/users/add">
+                                            <li><a href="<?= ROOT_DIREC ?>/pointofsales/add">
                                                 <em class="fa fa-plus"></em> Nouveau POS
                                             </a></li>
                                         </ul>

@@ -96,9 +96,9 @@ class PointofsalesController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $pointofsale = $this->Pointofsales->get($id);
         if ($this->Pointofsales->delete($pointofsale)) {
-            $this->Flash->success(__('The pointofsale has been deleted.'));
+            $this->Flash->success(__('POS Supprimé'));
         } else {
-            $this->Flash->error(__('The pointofsale could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Vous ne pouvez pas supprimer ce POS'));
         }
 
         return $this->redirect(['action' => 'index']);

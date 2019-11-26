@@ -44,6 +44,7 @@ class Sale extends Entity
      */
     protected $_accessible = [
         'sale_number' => true,
+        'monnaie' => true,
         'status' => true,
         'user_id' => true,
         'customer_id' => true,

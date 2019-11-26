@@ -35,27 +35,26 @@
                         </ul>
         </div>
     <div class="panel-body articles-container">
-            <table class="table table-stripped">
+            <table class="table table-stripped datatable">
                 <thead> 
                     <th>Nom</th>
                     <th class="text-center">Email</th>
                     <th class="text-center">Téléphone</th>
-                    <th class="text-center">Limite de Crédit</th>
-                    <th class="text-center">Réduction</th>
-                    <th class="text-center">Date de création</th>
+                    <th class="text-center">Limite</th>
                     <th class="text-center"></th>
                 </thead>
             <tbody> 
         <?php foreach($customers as $customer) : ?>
+            <?php if($customer->id != 1) : ?>
                 <tr>
-                    <td><?= $customer->first_name." ".$customer->last_name ?></td>
+                    <td><a href="<?= ROOT_DIREC ?>/customers/view/<?= $customer->id ?>" target="_blank"><?= strtoupper($customer->last_name) . " " . ucfirst(strtolower($customer->first_name)) ?></a></td>
                     <td class="text-center"><?= $customer->email ?></td>
                     <td class="text-center"><?= $customer->phone ?></td>
                     <td class="text-center"><?= number_format($customer->credit_limit, 2, ".", ",") ?> USD</td>
-                    <td class="text-center"><?= $customer->discount ?> <?= $types_reductions[$customer->discount_type] ?></td>
-                    <td class="text-center"><?= $customer->created ?></td>
-                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/customers/edit/<?= $customer->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a></td>
+                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/customers/edit/<?= $customer->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a>
+                     <a href="<?= ROOT_DIREC ?>/customers/delete/<?= $customer->id ?>" style="font-size:1.3em!important;margin-left:15px"><span class="fa fa-xl fa-trash color-red"></span></a></td>
                 </tr>
+            <?php endif; ?>
         <?php endforeach; ?>
         </tbody>
         </table>
@@ -66,3 +65,6 @@
 
 
 
+<script type="text/javascript">$(document).ready( function () {
+    $('.datatable').DataTable();
+} );</script>

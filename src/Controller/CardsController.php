@@ -49,7 +49,7 @@ class CardsController extends AppController
         if ($this->request->is('post')) {
             $card = $this->Cards->patchEntity($card, $this->request->getData());
             if ($ident = $this->Cards->save($card)) {
-                $this->Flash->success(__('La carte a bien été sauvegardée'));
+                $this->Flash->success(__('Carte Sauvegardé'));
 
                 return $this->redirect(['action' => 'edit', $ident['id']]);
             }
@@ -98,9 +98,9 @@ class CardsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $card = $this->Cards->get($id);
         if ($this->Cards->delete($card)) {
-            $this->Flash->success(__('The card has been deleted.'));
+            $this->Flash->success(__('Carte Supprimée'));
         } else {
-            $this->Flash->error(__('The card could not be deleted. Please, try again.'));
+            $this->Flash->error(__('Vous ne pouvez pas supprimer cette carte'));
         }
         return $this->redirect(['action' => 'index']);
     }

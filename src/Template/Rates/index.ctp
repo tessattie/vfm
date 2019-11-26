@@ -32,7 +32,7 @@
         <?php foreach($rates as $rate) : ?>
                 <tr>
                     <td><?= $rate->name ?></td>
-                    <td class="text-center">1 USD = <?= number_format($rate->amount, 2, ".", ",") ?> HTG</td>
+                    <td class="text-center">1 <?= $rate->name ?> = <?= number_format($rate->amount, 2, ".", ",") ?> HTG</td>
                     <td class="text-center"><?= $rate->modified ?></td>
                     <td class="text-right"><a href="<?= ROOT_DIREC ?>/rates/edit/<?= $rate->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a></td>
                 </tr>

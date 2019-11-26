@@ -22,7 +22,7 @@
         <div class="panel-heading">
             Nouveau POS
             <ul class="pull-right panel-settings panel-button-tab-right">
-                <li class="dropdown"><a href="<?= ROOT_DIREC ?>/users">
+                <li class="dropdown"><a href="<?= ROOT_DIREC ?>/pointofsales">
                     <em class="fa fa-arrow-left"></em>
                 </a>
                     

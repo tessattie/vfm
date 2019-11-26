@@ -45,6 +45,9 @@ class ProductsTable extends Table
             'foreignKey' => 'category_id',
             'joinType' => 'INNER'
         ]);
+        $this->hasMany('ProductsSales', [
+            'foreignKey' => 'product_id'
+        ]);
         $this->belongsToMany('Sales', [
             'foreignKey' => 'product_id',
             'targetForeignKey' => 'sale_id',

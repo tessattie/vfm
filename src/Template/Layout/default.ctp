@@ -26,9 +26,12 @@ $cakeDescription = 'VFM';
     <?= $this->Html->meta('icon') ?>
 
     <?= $this->Html->css('bootstrap.min.css') ?>
+    <?= $this->Html->css('jquery.dataTables.min.css') ?>
     <?= $this->Html->css('styles.css') ?>
     <?= $this->Html->css('datepicker3.css') ?>
     <?= $this->Html->css('font-awesome.min.css') ?>
+
+    <?= $this->Html->script("jquery-1.11.1.min.js") ?>
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
@@ -44,7 +47,7 @@ $cakeDescription = 'VFM';
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span></button>
-                <a class="navbar-brand" href="#"><span>VF</span> MATERIAUX</a>
+                <a class="navbar-brand" href="#"><span>VF</span>MATERIAUX</a>
                 <ul class="nav navbar-top-links navbar-right">
                     <li class="dropdown"><a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
                         <span class="fa fa-user" style="font-size: 28px;margin-top: -5px;margin-left: 1px;"></span>
@@ -74,21 +77,27 @@ $cakeDescription = 'VFM';
             <div class="clear"></div>
         </div>
         <div class="divider"></div>
-        <!-- <form role="search">
+        <?= $this->Form->create('', array("url" => "/sales/search", 'id' => "formtosubmit")) ?>
             <div class="form-group">
-                <input type="text" class="form-control" placeholder="Recherche" style="font-size: 15px;">
+                <input type="text" class="form-control" name = "sale_ident" id="formtochange" placeholder="Recherche" style="font-size: 15px;">
             </div>
-        </form>
- -->        <ul class="nav menu">
+        <?= $this->Form->end() ?>
+        <div class="divider"></div>
+        <ul class="nav menu">
             <li><a href="<?= ROOT_DIREC ?>"><em class="fa fa-home">&nbsp;</em> Accueil</a></li>
             
             <li class="parent <?= ($this->request->getParam('controller') == 'Sales') ? 'active' : '' ?>"><a data-toggle="collapse" href="#sub-item-4">
                 <em class="fa fa-cc">&nbsp;</em> Ventes <span data-toggle="collapse" href="#sub-item-4" class="icon pull-right"><em class="fa fa-plus"></em></span>
                 </a>
                 <ul class="children collapse" id="sub-item-4">
-                    <li><a href="<?= ROOT_DIREC ?>/sales/summary"><em class="fa fa-arrow-right">&nbsp;</em> Résumé</a></li>
                     <li><a class="" href="<?= ROOT_DIREC ?>/sales">
-                        <span class="fa fa-arrow-right">&nbsp;</span> Rapport
+                        <span class="fa fa-arrow-right">&nbsp;</span> Ventes
+                    </a></li>
+                    <li><a class="" href="<?= ROOT_DIREC ?>/sales/products">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Ventes par Produits
+                    </a></li>
+                    <li><a class="" href="<?= ROOT_DIREC ?>/sales/add">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Nouvelle Vente
                     </a></li>
                 </ul>
             </li>
@@ -109,19 +118,6 @@ $cakeDescription = 'VFM';
                 </ul>
             </li>
 
-            <li class="parent <?= ($this->request->getParam('controller') == 'Pointofsales' || $this->request->getParam('controller') == 'Rates' || $this->request->getParam('controller') == 'Methods') ? 'active' : '' ?>"><a data-toggle="collapse" href="#sub-item-3">
-                <em class="fa fa-cog">&nbsp;</em> Configuration <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
-                </a>
-                <ul class="children collapse" id="sub-item-3">
-                    <li class="<?= ($this->request->getParam('controller') == 'Pointofsales') ? 'active' : '' ?>"><a  href="<?= ROOT_DIREC ?>/pointofsales"><em class="fa fa-arrow-right">&nbsp;</em> POS</a></li>
-                    <li class="<?= ($this->request->getParam('controller') == 'Rates') ? 'active' : '' ?>"><a class=""  href="<?= ROOT_DIREC ?>/rates">
-                        <span class="fa fa-arrow-right">&nbsp;</span> Taux du jour
-                    </a></li>
-                    <li  class="<?= ($this->request->getParam('controller') == 'Methods') ? 'active' : '' ?>"><a class=""  href="<?= ROOT_DIREC ?>/methods">
-                        <span class="fa fa-arrow-right">&nbsp;</span> Méthodes de Paiement
-                    </a></li>
-                </ul>
-            </li>
 
             <li class="parent <?= ($this->request->getParam('controller') == 'Users' || $this->request->getParam('controller') == 'Roles' || $this->request->getParam('controller') == 'Cards') ? 'active' : '' ?>"><a data-toggle="collapse" href="#sub-item-2">
                 <em class="fa fa-users">&nbsp;</em> Utilisateurs <span data-toggle="collapse" href="#sub-item-2" class="icon pull-right"><em class="fa fa-plus"></em></span>
@@ -147,10 +143,15 @@ $cakeDescription = 'VFM';
                 </a>
                 <ul class="children collapse" id="sub-item-5">
                     <li class="<?= ($this->request->getParam('controller') == 'Customers') ? 'active' : '' ?>"><a  href="<?= ROOT_DIREC ?>/customers"><em class="fa fa-arrow-right">&nbsp;</em> Clients</a></li>
-                    <li class="<?= ($this->request->getParam('controller') == 'Invoices') ? 'active' : '' ?>"><a class=""  href="<?= ROOT_DIREC ?>/invoices">
-                        <span class="fa fa-arrow-right">&nbsp;</span> Factures
+
+                    <li class="<?= ($this->request->getParam('controller') == 'Accounts') ? 'active' : '' ?>"><a class=""  href="<?= ROOT_DIREC ?>/accounts">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Comptes
                     </a></li>
-                    <li class="<?= ($this->request->getParam('controller') == 'Payments') ? 'active' : '' ?>"><a  href="<?= ROOT_DIREC ?>/payments"><em class="fa fa-arrow-right">&nbsp;</em> Paiements</a></li>
+
+                    <li class="<?= ($this->request->getParam('controller') == 'Requisitions') ? 'active' : '' ?>"><a class=""  href="<?= ROOT_DIREC ?>/requisitions">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Réquisitions
+                    </a></li>
+
                     <li><a class=""  href="<?= ROOT_DIREC ?>/customers/add">
                         <span class="fa fa-arrow-right">&nbsp;</span> Nouveau Client
                     </a></li>
@@ -158,7 +159,22 @@ $cakeDescription = 'VFM';
             </li>
 
             <li class="<?= ($this->request->getParam('controller') == 'Trucks') ? 'active' : '' ?>"><a  href="<?= ROOT_DIREC ?>/trucks"><em class="fa fa-truck">&nbsp;</em> Camions</a></li>
-            <li><a  href="<?= ROOT_DIREC ?>/users/logout"><em class="fa fa-power-off">&nbsp;</em> Déconnexion</a></li>
+
+
+            <li class="parent <?= ($this->request->getParam('controller') == 'Pointofsales' || $this->request->getParam('controller') == 'Rates' || $this->request->getParam('controller') == 'Methods') ? 'active' : '' ?>"><a data-toggle="collapse" href="#sub-item-3">
+                <em class="fa fa-cog">&nbsp;</em> Configuration <span data-toggle="collapse" href="#sub-item-3" class="icon pull-right"><em class="fa fa-plus"></em></span>
+                </a>
+                <ul class="children collapse" id="sub-item-3">
+                    <li class="<?= ($this->request->getParam('controller') == 'Pointofsales') ? 'active' : '' ?>"><a  href="<?= ROOT_DIREC ?>/pointofsales"><em class="fa fa-arrow-right">&nbsp;</em> POS</a></li>
+                    <li class="<?= ($this->request->getParam('controller') == 'Rates') ? 'active' : '' ?>"><a class=""  href="<?= ROOT_DIREC ?>/rates">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Taux du jour
+                    </a></li>
+                    <li  class="<?= ($this->request->getParam('controller') == 'Methods') ? 'active' : '' ?>"><a class=""  href="<?= ROOT_DIREC ?>/methods">
+                        <span class="fa fa-arrow-right">&nbsp;</span> Paiements
+                    </a></li>
+                </ul>
+            </li>
+            <li><a  href="<?= ROOT_DIREC ?>/users/logout" style="color:red"><em class="fa fa-power-off">&nbsp;</em> Déconnexion</a></li>
         </ul>
     </div><!--/.sidebar-->
     <div class="col-sm-9 col-sm-offset-3 col-lg-10 col-lg-offset-2 main">
@@ -172,6 +188,7 @@ $cakeDescription = 'VFM';
     </div>
 
     <?= $this->Html->script("jquery-1.11.1.min.js") ?>
+    <?= $this->Html->script("//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js") ?>
     <?= $this->Html->script("bootstrap.js") ?>
     <?= $this->Html->script("bootstrap-datepicker.js") ?>
     <?= $this->Html->script("custom.js") ?>
@@ -189,5 +206,13 @@ $cakeDescription = 'VFM';
             text-align: center;
         }
     </style>
+
+    <script type="text/javascript">
+        $(function(){
+            $("#formtochange").change(function(){
+                $("#formtosubmit").submit();
+            })
+        })
+    </script>
 </body>
 </html>

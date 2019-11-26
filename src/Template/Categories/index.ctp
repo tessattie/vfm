@@ -36,9 +36,8 @@
                         </ul>
         </div>
     <div class="panel-body articles-container">
-            <table class="table table-stripped">
+            <table class="table table-stripped datatable">
                 <thead> 
-                <th>    </th>
                         <th>Nom</th>
                         <th class="text-center">Date de création</th>
                         <th class="text-right"></th>
@@ -46,10 +45,9 @@
             <tbody> 
         <?php foreach($categories as $category) : ?>
                 <tr>
-                <td><a href="<?= ROOT_DIREC ?>/cards/delete/<?= $category->id ?>" style="font-size:1.3em!important;margin-right:15px"><span class="fa fa-xl fa-trash color-red"></span></a></td>
                     <td><?= $category->name ?></td>
                     <td class="text-center"><?= $category->created ?></td>
-                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/categories/edit/<?= $category->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a></td>
+                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/categories/edit/<?= $category->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a> <a href="<?= ROOT_DIREC ?>/categories/delete/<?= $category->id ?>" style="font-size:1.3em!important;margin-left:5px"><span class="fa fa-xl fa-trash color-red"></span></a></td>
                 </tr>
         <?php endforeach; ?>
         </tbody>
@@ -61,3 +59,6 @@
 </div><!--End .articles-->
 
 
+<script type="text/javascript">$(document).ready( function () {
+    $('.datatable').DataTable();
+} );</script>

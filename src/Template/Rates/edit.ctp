@@ -28,7 +28,7 @@
                                 <ul class="dropdown-menu dropdown-menu-right">
                                     <li>
                                         <ul class="dropdown-settings">
-                                            <li><a href="<?= ROOT_DIREC ?>/categories">
+                                            <li><a href="<?= ROOT_DIREC ?>/rates">
                                                  Retour
                                             </a></li>
                                         </ul>

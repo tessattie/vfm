@@ -35,7 +35,7 @@
                         </ul>
         </div>
     <div class="panel-body articles-container">
-            <table class="table table-stripped">
+            <table class="table table-stripped datatable">
                 <thead> 
                     <th>Nom</th>
                     <th class="text-center">Catégorie</th>
@@ -58,7 +58,7 @@
                         <td class="text-center">  <span class="label label-danger"> <?= $status[$product->status] ?></span></td>
                     <?php endif; ?>
                     <td class="text-center"><?= $product->created ?></td>
-                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/products/edit/<?= $product->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a></td>
+                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/products/edit/<?= $product->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a> <a href="<?= ROOT_DIREC ?>/products/delete/<?= $product->id ?>" style="font-size:1.3em!important;margin-left:5px"><span class="fa fa-xl fa-trash color-red"></span></a></td>
                 </tr>
         <?php endforeach; ?>
         </tbody>
@@ -68,5 +68,8 @@
         
     </div>
 </div><!--End .articles-->
+<script type="text/javascript">$(document).ready( function () {
+    $('.datatable').DataTable();
+} );</script>
 
 

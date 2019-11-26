@@ -20,24 +20,29 @@ $ouinon = array(0=> "Non", 1 => "Oui");
     <div class="panel panel-default articles">
         <div class="panel-heading">
             Ventes
-            <ul class="pull-right panel-settings panel-button-tab-right">
-                            <li class="dropdown"><a class="pull-right dropdown-toggle" data-toggle="dropdown" href="#">
-                                <em class="fa fa-plus"></em>
-                            </a>
-                                <ul class="dropdown-menu dropdown-menu-right">
-                                    <li>
-                                        <ul class="dropdown-settings">
-                                            <li><a href="<?= ROOT_DIREC ?>/sales/add">
-                                                <em class="fa fa-plus"></em> Nouvelle Vente
-                                            </a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
         </div>
     <div class="panel-body articles-container">
-            <table class="table table-stripped">
+    <div class="row">
+        <div class="col-m-12">
+            <?= $this->Form->create() ?>
+                <div class="row">
+                    <div class="col-md-4">
+                        <?= $this->Form->control('from', array('class' => 'form-control', "label" => "De : ", "type" => "date")); ?>
+                    </div>
+
+                    <div class="col-md-4">
+                        <?= $this->Form->control('to', array('class' => 'form-control', "label" => "A : ", "type" => "date")); ?>
+                    </div>
+
+                    <div class="col-md-1">
+                        <?= $this->Form->button(__('Valider'), array('class'=>'btn btn-success', "style"=>"float:left")) ?>
+                    </div>
+                </div>
+            <?= $this->Form->end() ?>
+            <hr>
+        </div>
+    </div>
+            <table class="table table-stripped datatable">
                 <thead> 
                     <th>Numéro</th>
                     <th class="text-center">Caissier</th>
@@ -62,10 +67,15 @@ $ouinon = array(0=> "Non", 1 => "Oui");
                 
                 
                 
-                <td class="text-center"><?= $this->Number->format($sale->subtotal) ?> HTG</td>
-                <td class="text-center"><?= $this->Number->format($sale->taxe) ?> HTG</td>
-                <td class="text-center"><?= $sale->discount.$discounts[$sale->discount_type] ?></td>
-                <td class="text-center"><?= $this->Number->format($sale->total) ?> HTG</td>
+                <td class="text-center"><?= $this->Number->format($sale->subtotal) ?> <?= ($sale->status == 1) ? "HTG" : "USD" ?></td>
+                <td class="text-center"><?= $this->Number->format($sale->taxe) ?> <?= ($sale->status == 1) ? "HTG" : "USD" ?></td>
+                <?php if($sale->discount_type == 0) : ?>
+                    <td class="text-center"><?= $sale->discount ?>  <?= ($sale->status == 1) ? "HTG" : "USD" ?></td>
+                <?php else : ?>
+                    <td class="text-center"><?= $sale->discount.$discounts[$sale->discount_type] ?></td>
+                <?php endif; ?>
+                
+                <td class="text-center"><?= $this->Number->format($sale->total) ?> <?= ($sale->status == 1) ? "HTG" : "USD" ?></td>
                 <?php if($sale->charged == 0) : ?>
                     <td class="text-center"><label class="label label-danger">Non</label></td>
                 <?php else : ?>
@@ -79,6 +89,7 @@ $ouinon = array(0=> "Non", 1 => "Oui");
                 <?php endif; ?>
                 
                 <td class="text-center"><?= h($sale->created) ?></td>
+                <td class="text-right"><a href="<?= ROOT_DIREC ?>/sales/edit/<?= $sale->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a> <a href="<?= ROOT_DIREC ?>/sales/delete/<?= $sale->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-trash color-red"></span></a></td>
             </tr>
             <?php endforeach; ?>
         </tbody>
@@ -88,3 +99,22 @@ $ouinon = array(0=> "Non", 1 => "Oui");
         
     </div>
 </div><!--End .articles-->
+<script type="text/javascript">$(document).ready( function () {
+    $('.datatable').DataTable({
+            "ordering": false
+        });
+    })
+</script>
+
+<style type="text/css">
+    select{
+        padding: 5px;
+        /* margin-right: 5px; */
+        margin-left: 5px;
+        margin-bottom: 20px;
+        }
+
+    .input label{
+        margin-left:22px;
+    }
+</style>

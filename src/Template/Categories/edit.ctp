@@ -34,7 +34,7 @@
                                             <li><?= $this->Form->postLink(
                                                      __('Supprimer'),
                                                     ['action' => 'delete', $category->id],
-                                                    ['confirm' => __('Etes-vous sûr de vouloir supprimer la carte {0}?', $category->name)]
+                                                    ['confirm' => __('Etes-vous sûr de vouloir supprimer la catégorie {0}?', $category->name)]
                                                 )       
                                             ?></li>
                                             <li><a href="<?= ROOT_DIREC ?>/categories/add">

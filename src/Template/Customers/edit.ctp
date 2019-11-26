@@ -34,7 +34,7 @@
                                             <li><?= $this->Form->postLink(
                                                      __('Supprimer'),
                                                     ['action' => 'delete', $customer->id],
-                                                    ['confirm' => __('Etes-vous sûr de vouloir supprimer la carte {0}?', $customer->name)]
+                                                    ['confirm' => __('Etes-vous sûr de vouloir supprimer le client {0}?', $customer->name)]
                                                 )       
                                             ?></li>
                                             <li><a href="<?= ROOT_DIREC ?>/customers/add">
@@ -49,7 +49,7 @@
     <div class="panel-body articles-container">       
            <?= $this->Form->create($customer) ?>
             <div class="row">
-                <div class="col-md-3"><?= $this->Form->control('customer_number', array('class' => 'form-control', "label" => "Numéro Client *", "placeholder" => "Numéro Client ")); ?></div>
+                <div class="col-md-3"><?= $this->Form->control('customer_number', array('class' => 'form-control', "label" => "Numéro Client *", "placeholder" => "Numéro Client", "value" => $customer->customer_number)); ?></div>
                 <div class="col-md-3"><?= $this->Form->control('last_name', array('class' => 'form-control', "label" => "Nom *", "placeholder" => "Nom")); ?></div>
                 <div class="col-md-3"><?= $this->Form->control('first_name', array('class' => 'form-control', "label" => "Prénom *", "placeholder" => "Prénom")); ?></div>
                 <div class="col-md-3"><?= $this->Form->control('email', array('class' => 'form-control', "label" => "Email ", "placeholder" => "Email")); ?></div>                    

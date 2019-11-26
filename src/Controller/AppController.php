@@ -70,7 +70,7 @@ class AppController extends Controller
     public function beforeFilter(Event $event){
         if($this->Auth->user()){
             $this->set('status', array(0 => "Inactif", 1 => "Actif"));
-            $this->set('types_reductions', array(1 => "Pourcent", 2 => "Valeur"));
+            $this->set('types_reductions', array(0 => "USD", 1 => "%"));
             $this->set('user_connected', $this->Auth->user());
         }
     }

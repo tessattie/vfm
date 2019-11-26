@@ -36,9 +36,10 @@
                         </ul>
         </div>
     <div class="panel-body articles-container">
-            <table class="table table-stripped">
+            <table class="table table-stripped datatable">
                 <thead> 
-                    <th>Immatriculation</th>
+                    <th>Nom</th>
+                    <th class="text-center">Immatriculation</th>
                     <th class="text-center">Volume</th>
                     <th class="text-center">Utilisateur</th>
                     <th class="text-center">Date de création</th>
@@ -47,11 +48,13 @@
             <tbody> 
         <?php foreach($trucks as $truck) : ?>
                 <tr>
-                    <td><?= $this->Html->image('trucks/'.$truck->photo, ["width" => "60px", "height" => "auto"]); ?> <?= $truck->immatriculation ?></td>
+                    <td><?= $this->Html->image('trucks/'.$truck->photo, ["width" => "60px", "height" => "auto"]); ?><a href="<?= ROOT_DIREC ?>/trucks/view/<?= $truck->id ?>" target="_blank"> <?= $truck->name ?></a> </td>
+                    <td class="text-center"><?= $truck->immatriculation ?></td>
                     <td class="text-center"><?= $truck->volume ?> m3</td>
                     <td class="text-center"><?= $truck->user->first_name." ".$truck->user->last_name ?></td>
                     <td class="text-center"><?= $truck->created ?></td>
-                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/trucks/edit/<?= $truck->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a></td>
+                    <td class="text-right"><a href="<?= ROOT_DIREC ?>/trucks/edit/<?= $truck->id ?>" style="font-size:1.3em!important;"><span class="fa fa-xl fa-pencil color-blue"></span></a>
+                    <a href="<?= ROOT_DIREC ?>/trucks/delete/<?= $truck->id ?>" style="font-size:1.3em!important;margin-left:5px"><span class="fa fa-xl fa-trash color-red"></span></a></td>
                 </tr>
         <?php endforeach; ?>
         </tbody>
@@ -63,4 +66,6 @@
         
     </div>
 </div><!--End .articles-->
-
+<script type="text/javascript">$(document).ready( function () {
+    $('.datatable').DataTable();
+} );</script>

@@ -53,9 +53,7 @@ class UsersTable extends Table
         $this->hasMany('Customers', [
             'foreignKey' => 'user_id'
         ]);
-        $this->hasMany('Invoices', [
-            'foreignKey' => 'user_id'
-        ]);
+
         $this->hasMany('Sales', [
             'foreignKey' => 'user_id'
         ]);

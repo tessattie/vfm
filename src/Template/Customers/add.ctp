@@ -23,7 +23,7 @@ $customer_number = rand(1000, 9999);
         <div class="panel-heading">
             Nouveau Client
             <ul class="pull-right panel-settings panel-button-tab-right">
-                <li class="dropdown"><a href="<?= ROOT_DIREC ?>/clients">
+                <li class="dropdown"><a href="<?= ROOT_DIREC ?>/customers">
                     <em class="fa fa-arrow-left"></em>
                 </a>
                     

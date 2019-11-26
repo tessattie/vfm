@@ -50,4 +50,10 @@ class Customer extends Entity
         'invoices' => true,
         'sales' => true
     ];
+
+
+    protected function _getName()
+    {
+        return strtoupper($this->_properties['last_name']) . ' ' . ucfirst(strtolower($this->_properties['first_name']));
+    }
 }

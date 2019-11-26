@@ -16,7 +16,9 @@
         <li class="active">Editer</li>
     </ol>
 </div>
+
 <?= $this->Flash->render() ?>
+
 <div class="container-fluid"> 
     <div class="panel panel-default articles">
         <div class="panel-heading">
@@ -34,7 +36,7 @@
                                             <li><?= $this->Form->postLink(
                                                      __('Supprimer'),
                                                     ['action' => 'delete', $pointofsale->id],
-                                                    ['confirm' => __('Etes-vous sûr de vouloir supprimer la carte {0}?', $pointofsale->name)]
+                                                    ['confirm' => __('Etes-vous sûr de vouloir supprimer le POS {0}?', $pointofsale->name)]
                                                 )       
                                             ?></li>
                                             <li><a href="<?= ROOT_DIREC ?>/users/add">

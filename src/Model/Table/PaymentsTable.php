@@ -56,11 +56,6 @@ class PaymentsTable extends Table
             'foreignKey' => 'rate_id',
             'joinType' => 'INNER'
         ]);
-        $this->belongsToMany('Invoices', [
-            'foreignKey' => 'payment_id',
-            'targetForeignKey' => 'invoice_id',
-            'joinTable' => 'invoices_payments'
-        ]);
     }
 
     /**

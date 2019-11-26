@@ -51,11 +51,11 @@ class SalesTable extends Table
         ]);
         $this->belongsTo('Customers', [
             'foreignKey' => 'customer_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
         $this->belongsTo('Trucks', [
             'foreignKey' => 'truck_id',
-            'joinType' => 'INNER'
+            'joinType' => 'LEFT'
         ]);
         $this->belongsTo('Pointofsales', [
             'foreignKey' => 'pointofsale_id',
@@ -64,6 +64,19 @@ class SalesTable extends Table
         $this->hasMany('Payments', [
             'foreignKey' => 'sale_id'
         ]);
+
+        $this->hasMany('Transactions', [
+            'foreignKey' => 'sale_id'
+        ]);
+
+        $this->hasMany('ProductsSales', [
+            'foreignKey' => 'sale_id'
+        ]);
+
+        $this->hasMany('RequisitionsSales', [
+            'foreignKey' => 'sale_id'
+        ]);
+
         $this->belongsToMany('Products', [
             'foreignKey' => 'sale_id',
             'targetForeignKey' => 'product_id',
